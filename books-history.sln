@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.36105.23 d17.13
+VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "books-history", "books-history\books-history.csproj", "{00281C5C-2D1A-4AED-9264-30EDF8619174}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api.model", "api.model\api.model.csproj", "{FE505D73-CED2-459B-A6F8-6D87E2F1DD53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{00281C5C-2D1A-4AED-9264-30EDF8619174}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00281C5C-2D1A-4AED-9264-30EDF8619174}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00281C5C-2D1A-4AED-9264-30EDF8619174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE505D73-CED2-459B-A6F8-6D87E2F1DD53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE505D73-CED2-459B-A6F8-6D87E2F1DD53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE505D73-CED2-459B-A6F8-6D87E2F1DD53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE505D73-CED2-459B-A6F8-6D87E2F1DD53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
