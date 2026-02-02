@@ -1,6 +1,10 @@
 ﻿using api.model.DTOs;
+using AutoMapper;
+using data.model.Entities;
+using data.repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace books_history.Controllers
 {
@@ -9,22 +13,36 @@ namespace books_history.Controllers
     public class BooksController : ControllerBase
     {
         private readonly ILogger<BooksController> _logger;
+        private readonly IBooksRepository _repository;
+        private readonly IMapper _mapper;
 
-        public BooksController(ILogger<BooksController> logger)
+        public BooksController(ILogger<BooksController> logger, IBooksRepository repository, IMapper mapper)
         {
             _logger = logger;
+            _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public Task<ActionResult<List<BookDTO>>> GetBooks()
+        public async Task<ActionResult<List<BookDTO>>> GetBooks()
         {
-            return null;
+            var books = await _repository.GetAll();
+
+            if (!books.Any())
+                return NotFound("No books found");
+
+            return Ok(books);
         }
 
         [HttpGet("{id}")]
-        public Task<ActionResult<BookDTO>> GetBookById()
+        public async Task<ActionResult<BookDTO>> GetBookById([FromRoute, Required] int id)
         {
-            return null;
+            var book = await _repository.GetById(id);
+
+            if (book == null)
+                return NotFound("No book found");
+
+            return Ok(book);
         }
 
         [HttpGet("{id}/history")]
@@ -34,9 +52,15 @@ namespace books_history.Controllers
         }
 
         [HttpPost]
-        public Task<ActionResult<BookDTO>> CreateBook([FromBody] BookDTO book)
+        public async Task<ActionResult<BookDTO>> CreateBook([FromBody] BookDTO book)
         {
-            return null;
+            var isAdded = await _repository.Add(_mapper.Map<Book>(book));
+
+            if (isAdded == false)
+                return BadRequest("Book can not be created");
+
+            return Ok("Book successfully created");
+           
         }
     }
 }
