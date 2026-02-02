@@ -8,10 +8,10 @@ namespace api.model.DTOs
 {
     public class BookDTO
     {
-        public int id {  get; set; }
-        public required string title {  get; set; }
-        public required string description { get; set; }
-        public DateTime publishDate { get; set; }
-        public required List<string> authors { get; set; }
+        public int Id {  get; set; }
+        public required string Title {  get; set; }
+        public required string Description { get; set; }
+        public DateTime PublishDate { get; set; }
+        public required List<string> Authors { get; set; }
     }
 }
