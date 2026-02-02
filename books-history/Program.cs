@@ -1,3 +1,9 @@
+using AutoMapper;
+using books_history.MappingProfiles;
+using data.migration;
+using data.repository;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,19 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddDbContext<BooksDbContext>(options => options.UseInMemoryDatabase(databaseName: "Books"));
+
+builder.Services.AddScoped<IBooksRepository, InMemoryBooksRepository>();
+
 
 var app = builder.Build();
 
