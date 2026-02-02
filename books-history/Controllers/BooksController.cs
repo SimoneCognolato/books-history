@@ -21,5 +21,22 @@ namespace books_history.Controllers
             return null;
         }
 
+        [HttpGet("{id}")]
+        public Task<ActionResult<BookDTO>> GetBookById()
+        {
+            return null;
+        }
+
+        [HttpGet("{id}/history")]
+        public Task<ActionResult<BookDTO>> GetBookHistoryById()
+        {
+            return null;
+        }
+
+        [HttpPost]
+        public Task<ActionResult<BookDTO>> CreateBook([FromBody] BookDTO book)
+        {
+            return null;
+        }
     }
 }
