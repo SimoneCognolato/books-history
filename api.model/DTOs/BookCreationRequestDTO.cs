@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace api.model.DTOs
 {
-    public class BookDTO
+    public class BookCreationRequestDTO
     {
-        public long Id {  get; set; }
-        public required string Title {  get; set; }
+        public required string Title { get; set; }
         public required string Description { get; set; }
         public DateTime PublishDate { get; set; }
         public required List<string> Authors { get; set; }

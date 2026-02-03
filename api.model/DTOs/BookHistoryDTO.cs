@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace api.model.DTOs
 {
-    public class BookDTO
+    public class BookHistoryDTO
     {
-        public long Id {  get; set; }
-        public required string Title {  get; set; }
+        public long Id { get; set; }
+        public required string Title { get; set; }
         public required string Description { get; set; }
         public DateTime PublishDate { get; set; }
         public required List<string> Authors { get; set; }
+        public required DateTime ChangedOn { get; set; }
     }
 }
