@@ -1,5 +1,6 @@
 ﻿using data.migration;
 using data.model.Entities;
+using data.model.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -87,15 +88,22 @@ namespace data.repository
             return true;
         }
 
-        public async Task<List<BookHistory>> GetHistoryByGuid(Guid guid)
+        public async Task<List<BookHistory>> GetHistoryByGuid(Guid guid, UpdatedFieldEnum? updatedField)
         {
             var existingBook = await _dbContext.Books.FirstOrDefaultAsync(u => u.Guid == guid);
 
             if (existingBook == null)
                 return new List<BookHistory>();
 
+            var query = _dbContext.BooksHistory.Where(u => u.BookId == existingBook.Id);
 
-            return await _dbContext.BooksHistory.Where(u => u.BookId == existingBook.Id).ToListAsync();
+            if (updatedField.HasValue)
+            {
+                query = query.Where(u => u.UpdatedField == updatedField.Value.ToString());
+            }
+
+            return await query.ToListAsync();
+
         }
 
         private void AddHistory(List<BookHistory> historyList, long id, string updatedField, string previousValue, string  currentValue)

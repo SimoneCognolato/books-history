@@ -1,4 +1,5 @@
 ﻿using data.model.Entities;
+using data.model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace data.repository
         Task<Book?> GetByGuid(Guid guid);
         Task<bool> Add(Book book);
         Task<bool> Update(Book book);
-        Task<List<BookHistory>> GetHistoryByGuid(Guid guid);
+        Task<List<BookHistory>> GetHistoryByGuid(Guid guid, UpdatedFieldEnum? updatedField);
     }
 }

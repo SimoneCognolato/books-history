@@ -1,4 +1,5 @@
 ﻿using api.model.DTOs;
+using api.model.Enums;
 using AutoMapper;
 using data.model.Entities;
 using data.repository;
@@ -47,9 +48,9 @@ namespace books_history.Controllers
         }
 
         [HttpGet("{guid}/history")]
-        public async Task<ActionResult<List<BookHistory>>> GetBookHistoryByGuid([FromRoute, Required] Guid guid)
+        public async Task<ActionResult<List<BookHistory>>> GetBookHistoryByGuid([FromRoute, Required] Guid guid, [FromQuery] UpdatedFieldEnum? updatedField)
         {
-            return await _repository.GetHistoryByGuid(guid);
+            return await _repository.GetHistoryByGuid(guid, _mapper.Map<data.model.Enums.UpdatedFieldEnum>(updatedField));
         }
 
         [HttpPost]
