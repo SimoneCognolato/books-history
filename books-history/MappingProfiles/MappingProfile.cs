@@ -10,6 +10,7 @@ namespace books_history.MappingProfiles
     {
         public MappingProfile() {
             CreateMap<BookDTO, Book>().ReverseMap();
+            CreateMap<BookCreationRequestDTO, Book>().ReverseMap();
         }
     }
 }
