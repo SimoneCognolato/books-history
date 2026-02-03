@@ -15,5 +15,6 @@ namespace data.migration
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<BookHistory> BooksHistory { get; set; }
     }
 }
