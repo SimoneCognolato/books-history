@@ -48,9 +48,15 @@ namespace books_history.Controllers
         }
 
         [HttpGet("{guid}/history")]
-        public async Task<ActionResult<List<BookHistory>>> GetBookHistoryByGuid([FromRoute, Required] Guid guid, [FromQuery] UpdatedFieldEnum? updatedField)
+        public async Task<ActionResult<List<BookHistory>>> GetBookHistoryByGuid(
+            [FromRoute, Required] Guid guid, 
+            [FromQuery] UpdatedFieldEnum? updatedField,
+            [FromQuery] OrderingDirectionEnum? ordering)
         {
-            return await _repository.GetHistoryByGuid(guid, _mapper.Map<data.model.Enums.UpdatedFieldEnum>(updatedField));
+            return await _repository.GetHistoryByGuid(
+                guid, 
+                _mapper.Map<data.model.Enums.UpdatedFieldEnum>(updatedField),
+                _mapper.Map<data.model.Enums.OrderingDirectionEnum>(ordering));
         }
 
         [HttpPost]

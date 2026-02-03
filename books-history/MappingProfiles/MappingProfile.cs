@@ -14,6 +14,7 @@ namespace books_history.MappingProfiles
             CreateMap<BookDTO, Book>().ReverseMap();
             CreateMap<BookCreationRequestDTO, Book>().ReverseMap();
             CreateMap<api.model.Enums.UpdatedFieldEnum, data.model.Enums.UpdatedFieldEnum>().ReverseMap();
+            CreateMap<api.model.Enums.OrderingDirectionEnum, data.model.Enums.OrderingDirectionEnum>().ReverseMap();
         }
     }
 }
