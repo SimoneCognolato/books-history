@@ -13,6 +13,11 @@ docker build -t books-history-api .
 docker run -d -p 5000:8080 -e ASPNETCORE_ENVIRONMENT=Development --name books-container books-history-api
 ```
 
+3. Open the Swagger Documentation
+```
+http://localhost:5000/swagger/index.html
+```  
+
 ## Features
 This ASP.NET Core Web API allows to:
 1. Create a new book
