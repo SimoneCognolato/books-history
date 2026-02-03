@@ -35,7 +35,7 @@ namespace books_history.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookDTO>> GetBookById([FromRoute, Required] int id)
+        public async Task<ActionResult<BookDTO>> GetBookById([FromRoute, Required] long id)
         {
             var book = await _repository.GetById(id);
 
@@ -46,13 +46,26 @@ namespace books_history.Controllers
         }
 
         [HttpGet("{id}/history")]
-        public Task<ActionResult<BookDTO>> GetBookHistoryById()
+        public async Task<ActionResult<List<BookHistoryDTO>>> GetBookHistoryById([FromRoute, Required] long id)
         {
-            return null;
+            var history = await _repository.GetHistoryById(id);
+
+            if (history == null)
+                return NotFound("No history was found for this book");
+
+            var toReturn = new List<BookHistoryDTO>();
+
+            foreach (var item in history)
+            {
+                var mapped = _mapper.Map<BookHistoryDTO>(item);
+                toReturn.Add(mapped);
+            }
+
+            return toReturn;
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookDTO>> CreateBook([FromBody] BookDTO book)
+        public async Task<ActionResult<BookDTO>> CreateBook([FromBody] BookCreationRequestDTO book)
         {
             var isAdded = await _repository.Add(_mapper.Map<Book>(book));
 
@@ -60,7 +73,26 @@ namespace books_history.Controllers
                 return BadRequest("Book can not be created");
 
             return Ok("Book successfully created");
-           
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<BookDTO>> UpdateBook([FromRoute, Required] long id, [FromBody] BookCreationRequestDTO book)
+        {
+            var existingBook = await _repository.GetById(id);
+
+            if (book == null)
+                return NotFound("No book found");
+
+            var bookToInsert = _mapper.Map<Book>(book);
+            bookToInsert.Id = id;
+
+            var update = await _repository.Update(bookToInsert);
+
+            if (update == false) 
+                return BadRequest("Unable to update book");
+
+            return Ok(book);
         }
     }
 }
