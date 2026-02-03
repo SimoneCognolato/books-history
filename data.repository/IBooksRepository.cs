@@ -10,7 +10,9 @@ namespace data.repository
     public interface IBooksRepository
     {
         Task<List<Book>> GetAll();
-        Task<Book?> GetById(int id);
+        Task<Book?> GetByGuid(Guid guid);
         Task<bool> Add(Book book);
+        Task<bool> Update(Book book);
+        Task<List<BookHistory>> GetHistoryByGuid(Guid guid);
     }
 }
