@@ -88,7 +88,7 @@ namespace data.repository
             return true;
         }
 
-        public async Task<List<BookHistory>> GetHistoryByGuid(Guid guid, UpdatedFieldEnum? updatedField, OrderingDirectionEnum? ordering)
+        public async Task<List<BookHistory>> GetHistoryByGuid(Guid guid, UpdatedFieldEnum? updatedField, OrderingDirectionEnum? ordering, int? limit, int? offset)
         {
             var existingBook = await _dbContext.Books.FirstOrDefaultAsync(u => u.Guid == guid);
 
@@ -98,14 +98,16 @@ namespace data.repository
             var query = _dbContext.BooksHistory.Where(u => u.BookId == existingBook.Id);
 
             if (updatedField.HasValue)
-            {
                 query = query.Where(u => u.UpdatedField == updatedField.Value.ToString());
-            }
 
             if (ordering.HasValue)
-            {
                 query = ordering == OrderingDirectionEnum.Descending ? query.OrderByDescending(u => u.UpdatedOn) : query.OrderBy(u => u.UpdatedOn);
-            }
+
+            if (offset.HasValue && offset.Value > 0)
+                query = query.Skip(offset.Value);
+
+            if (limit.HasValue && limit.Value > 0)
+                query = query.Take(limit.Value);
 
             return await query.ToListAsync();
 

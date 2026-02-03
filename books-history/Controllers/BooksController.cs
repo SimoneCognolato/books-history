@@ -51,12 +51,16 @@ namespace books_history.Controllers
         public async Task<ActionResult<List<BookHistory>>> GetBookHistoryByGuid(
             [FromRoute, Required] Guid guid, 
             [FromQuery] UpdatedFieldEnum? updatedField,
-            [FromQuery] OrderingDirectionEnum? ordering)
+            [FromQuery] OrderingDirectionEnum? ordering,
+            [FromQuery] int? limit,
+            [FromQuery] int? offset)
         {
             return await _repository.GetHistoryByGuid(
                 guid, 
                 _mapper.Map<data.model.Enums.UpdatedFieldEnum>(updatedField),
-                _mapper.Map<data.model.Enums.OrderingDirectionEnum>(ordering));
+                _mapper.Map<data.model.Enums.OrderingDirectionEnum>(ordering),
+                limit,
+                offset);
         }
 
         [HttpPost]

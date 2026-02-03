@@ -14,6 +14,6 @@ namespace data.repository
         Task<Book?> GetByGuid(Guid guid);
         Task<bool> Add(Book book);
         Task<bool> Update(Book book);
-        Task<List<BookHistory>> GetHistoryByGuid(Guid guid, UpdatedFieldEnum? updatedField, OrderingDirectionEnum? ordering);
+        Task<List<BookHistory>> GetHistoryByGuid(Guid guid, UpdatedFieldEnum? updatedField, OrderingDirectionEnum? ordering, int? limit, int? offset);
     }
 }
